@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Luxury Lady — Stylish Women's Shop</title>
+  <title>Zelva — ร้านเสื้อผ้าแฟชั่นผู้หญิง</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -700,8 +700,12 @@ body {
   <header class="header">
     <div class="header-inner">
       <a href="#" class="logo">
-        <div class="logo-icon">👑</div>
-        <span class="logo-text font-display">Luxury Lady</span>
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <span class="logo-text font-display">Zelva</span>
       </a>
       <nav class="header-nav">
         <a href="#products" class="nav-link">สินค้า</a>
@@ -714,13 +718,22 @@ body {
 
   <section class="hero">
     <div class="hero-content">
-      <div class="hero-badge animate-fade-in-up">✨ Trusted by 1,000+ Happy Customers</div>
+      <div class="hero-badge animate-fade-in-up">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#D4A843" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Trusted by 1,000+ Happy Customers
+      </div>
       <h1 class="animate-fade-in-up animate-delay-1">Effortless<br><span class="gold-text">Elegance</span></h1>
-      <p class="hero-subtitle animate-fade-in-up animate-delay-2">Curated fashion for the modern woman</p>
-      <p class="hero-subtitle-thai animate-fade-in-up animate-delay-2">แฟชั่นคัดสรรสำหรับผู้หญิงยุคใหม่ที่ดูดีทุกวัน</p>
+      <p class="hero-subtitle animate-fade-in-up animate-delay-2">Your Style, Your Story</p>
+      <p class="hero-subtitle-thai animate-fade-in-up animate-delay-2">เสื้อผ้าแฟชั่นผู้หญิง คัดมาเพื่อคุณโดยเฉพาะ</p>
       <div class="hero-cta-group animate-fade-in-up animate-delay-3">
-        <button onclick="goShop()" class="btn-primary">🛍️ ซื้อสินค้าเลย</button>
-        <a href="#credits" class="btn-secondary">💎 ดูเครดิตร้าน</a>
+        <button onclick="goShop()" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          ซื้อสินค้าเลย
+        </button>
+        <a href="#credits" class="btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8922E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          ดูเครดิตร้าน
+        </a>
       </div>
     </div>
   </section>
@@ -780,7 +793,12 @@ body {
       <p class="section-subtitle animate-fade-in-up animate-delay-2">เครดิตร้านค้า — ความน่าเชื่อถือจากลูกค้าจริง</p>
       <div class="credit-card animate-fade-in-up animate-delay-3">
         <div class="credit-header">
-          <div class="credit-shield">🏆</div>
+          <div class="credit-shield">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B8922E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
           <p class="credit-label">Reputation Score</p>
         </div>
         <div class="credit-display" id="credit-display">
@@ -794,8 +812,14 @@ body {
           <div class="credit-bar-labels"><span>0</span><span>Reliability Level 4.6</span><span>300</span></div>
         </div>
         <div class="credit-actions">
-          <button class="btn-add-credit" onclick="addCredit()">💖 +1 Credit</button>
-          <button class="btn-deduct-credit" onclick="openDeductModal()">⚠️ รายงาน</button>
+          <button class="btn-add-credit" onclick="addCredit()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            +1 Credit
+          </button>
+          <button class="btn-deduct-credit" onclick="openDeductModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7A6A55" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>
+            รายงาน
+          </button>
         </div>
         <div class="credit-stats">
           <div class="credit-stat"><div class="credit-stat-value" id="total-added">0</div><div class="credit-stat-label">Added Today</div></div>
@@ -814,7 +838,8 @@ body {
     </div>
     <div style="text-align:center;">
       <button class="btn-view-products" onclick="openProductsPage()">
-        🛍️ ดูสินค้าทั้งหมด &rarr;
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        ดูสินค้าทั้งหมด &rarr;
       </button>
     </div>
   </section>
@@ -849,15 +874,18 @@ body {
       </div>
     </div>
     <div style="text-align:center;">
-      <button class="btn-view-reviews" onclick="openReviewPage()">✨ ดูรีวิวทั้งหมดจากลูกค้าจริง &rarr;</button>
+      <button class="btn-view-reviews" onclick="openReviewPage()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        ดูรีวิวทั้งหมดจากลูกค้าจริง &rarr;
+      </button>
     </div>
   </section>
 
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <span class="logo-text footer-brand" style="font-size:22px;font-family:'Playfair Display',serif;color:#FFFFFF;-webkit-text-fill-color:#FFFFFF;background:none;display:block;margin-bottom:12px;font-weight:700;">Luxury Lady</span>
-        <p>แฟชั่นสำหรับผู้หญิงยุคใหม่ คัดสรรอย่างดีด้วยหัวใจ เพื่อความมั่นใจในทุกๆ วันของคุณ</p>
+        <span class="logo-text footer-brand" style="font-size:22px;font-family:'Playfair Display',serif;color:#FFFFFF;-webkit-text-fill-color:#FFFFFF;background:none;display:block;margin-bottom:12px;font-weight:700;">Zelva</span>
+        <p>แฟชั่นผู้หญิงคัดสรรพิเศษ สวยครบ ราคาดี จัดส่งไว</p>
       </div>
       <div>
         <h4>ร้านค้า</h4>
@@ -877,7 +905,7 @@ body {
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">&copy; 2026 Luxury Lady — Premium Women's Shop. All rights reserved.</div>
+    <div class="footer-bottom">&copy; 2026 Zelva — แฟชั่นผู้หญิง สไตล์คุณ. All rights reserved.</div>
   </footer>
 
   <!-- ===== PRODUCTS FULL PAGE ===== -->
@@ -932,7 +960,9 @@ body {
     <div class="write-review-modal">
       <button class="modal-close" onclick="closeWriteReview()" style="position:absolute;top:16px;right:16px;">&times;</button>
       <div class="modal-header" style="margin-bottom:20px;">
-        <div class="modal-icon" style="background:linear-gradient(135deg,#FFF9EE,#FFE8B8);">✍️</div>
+        <div class="modal-icon" style="background:linear-gradient(135deg,#FFF9EE,#FFE8B8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B8922E" stroke-width="1.8" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
         <h3 class="modal-title">เขียนรีวิวร้านค้า</h3>
         <p style="font-size:13px;color:#A89880;margin-top:6px;">แสดงความคิดเห็นโดยไม่ระบุตัวตน</p>
       </div>
@@ -950,7 +980,10 @@ body {
         <label class="form-label">ความคิดเห็น</label>
         <textarea class="form-textarea" id="review-text-input" rows="4" placeholder="บอกเล่าประสบการณ์การซื้อสินค้าของคุณค่ะ..."></textarea>
       </div>
-      <button class="btn-submit" onclick="submitReview()">ส่งรีวิว 💖</button>
+      <button class="btn-submit" onclick="submitReview()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        ส่งรีวิว
+      </button>
     </div>
   </div>
 
@@ -960,7 +993,9 @@ body {
     <div class="modal">
       <button class="modal-close" onclick="closeDeductModal()">&times;</button>
       <div class="modal-header">
-        <div class="modal-icon">📋</div>
+        <div class="modal-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B8922E" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        </div>
         <h3 class="modal-title">รายงานปัญหา</h3>
         <p style="font-size:13px;color:#A89880;margin-top:6px;">กรุณากรอกเหตุผลและแนบภาพหลักฐาน</p>
       </div>
@@ -984,7 +1019,11 @@ body {
 
   <div class="admin-overlay" id="admin-login-overlay">
     <div class="admin-login-modal">
-      <div class="admin-login-icon">🔐</div>
+      <div class="admin-login-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+        </svg>
+      </div>
       <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#3D2E1E;margin-bottom:8px;">Admin Access</h2>
       <p style="font-size:13px;color:#A89880;margin-bottom:28px;">กรุณากรอกรหัสผ่านแอดมิน</p>
       <div class="form-group">
@@ -1003,7 +1042,7 @@ body {
         <div style="display:flex;align-items:center;justify-content:space-between;">
           <div>
             <h2>⚙️ Admin Dashboard</h2>
-            <p>Luxury Lady — จัดการร้านค้าทั้งหมด</p>
+            <p>Zelva — จัดการร้านค้าทั้งหมด</p>
           </div>
           <button onclick="closeAdminPanel()" style="background:rgba(255,255,255,0.15);border:none;color:white;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;">×</button>
         </div>
@@ -1049,7 +1088,7 @@ body {
       </div>
       <div class="admin-setting-row">
         <div><div class="admin-setting-label">📝 ชื่อร้าน</div><div class="admin-setting-desc">ชื่อที่แสดงใน Header</div></div>
-        <input class="admin-input" id="s-shop-name" style="flex:1;" placeholder="Luxury Lady">
+        <input class="admin-input" id="s-shop-name" style="flex:1;" placeholder="Zelva">
       </div>
       <div class="admin-setting-row">
         <div><div class="admin-setting-label">💬 Subtitle Hero</div><div class="admin-setting-desc">ข้อความ subtitle หน้าหลัก</div></div>
@@ -1108,8 +1147,8 @@ body {
   const DEFAULT_SETTINGS = {
     tiktok: DEFAULT_TIKTOK,
     defaultCredit: 219,
-    shopName: "Luxury Lady",
-    heroSub: "แฟชั่นคัดสรรสำหรับผู้หญิงยุคใหม่ที่ดูดีทุกวัน",
+    shopName: "Zelva",
+    heroSub: "เสื้อผ้าแฟชั่นผู้หญิง คัดมาเพื่อคุณโดยเฉพาะ",
   };
 
   let creditValue = 219;
@@ -1124,7 +1163,7 @@ body {
   // ════════════════════════════════════════
   // GITHUB PERSISTENT STORAGE CONFIG
   // ════════════════════════════════════════
-  const GH_TOKEN  = atob("Z2hwX3o1T2ZQcDhIcVNOekpLbXViTll4N1V0aWVJcFBtaDQxMzBTMQ==");
+  const GH_TOKEN  = atob("Z2hwX2NqQmREUlVhdlN1Vm1qbzlHMVo1TzNTVkFZenFuVjNUT2phcg==");
   const GH_OWNER  = "kantthida1352-arch";
   const GH_REPO   = "Zelvawebshop";
   const GH_BRANCH = "main";
@@ -1418,7 +1457,7 @@ body {
 
   function createSparkle(e) {
     const s = document.createElement("div");
-    s.className = "sparkle"; s.innerHTML = "✨";
+    s.className = "sparkle"; s.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="#D4A843"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
     s.style.left = (e.clientX - 10) + "px"; s.style.top = (e.clientY - 10) + "px";
     document.body.appendChild(s);
     setTimeout(() => s.remove(), 800);
@@ -1598,7 +1637,7 @@ body {
     // fill settings
     document.getElementById("s-tiktok").value = settings.tiktok || DEFAULT_TIKTOK;
     document.getElementById("s-default-credit").value = settings.defaultCredit || 219;
-    document.getElementById("s-shop-name").value = settings.shopName || "Luxury Lady";
+    document.getElementById("s-shop-name").value = settings.shopName || "Zelva";
     document.getElementById("s-hero-sub").value = settings.heroSub || "";
     document.getElementById("s-new-password").value = "";
 
