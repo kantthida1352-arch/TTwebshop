@@ -1340,18 +1340,32 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    // ===== CONFIGURATION =====
+    // ===== CONFIGURATION & DATABASE =====
     const TIKTOK_URL = "https://www.tiktok.com/@long_laewlove?_r=1&_t=ZS-94uw7I5ZBoI";
-    let creditValue = 219;
+    
+    // ตั้งชื่อ namespace และ key สำหรับเก็บข้อมูลออนไลน์ (ห้ามซ้ำกับคนอื่น)
+    const namespace = "luxury-lady-official-store-v2026"; 
+    const key = "reputation-credits";
+
+    let creditValue = 219; // ค่าเริ่มต้น
     let totalAddedToday = 0;
     const maxCredit = 300;
     let proofAttached = false;
 
-    // ===== INITIALIZE =====
+    // ===== INITIALIZE & FETCH DATABASE =====
     document.addEventListener('DOMContentLoaded', () => {
-      updateCreditDisplay();
+      // ดึงแต้มล่าสุดจาก Server
+      fetch(`https://api.countapi.xyz/get/${namespace}/${key}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.value) {
+            creditValue = data.value;
+            updateCreditDisplay();
+          }
+        })
+        .catch(() => updateCreditDisplay());
 
-      // Intersection Observer for animations
+      // Intersection Observer (การตกแต่งแอนิเมชันเดิม)
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -1369,24 +1383,30 @@
     }
 
     function addCredit() {
-      creditValue++;
-      totalAddedToday++;
+      // ส่งคำสั่งบวกแต้มไปที่ Server จริง
+      fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+        .then(res => res.json())
+        .then(data => {
+          creditValue = data.value;
+          totalAddedToday++;
 
-      const valElement = document.getElementById("credit-value");
-      valElement.textContent = creditValue;
-      valElement.classList.add("pop");
+          const valElement = document.getElementById("credit-value");
+          valElement.textContent = creditValue;
+          valElement.classList.add("pop");
 
-      createSparkle(event);
-      updateCreditDisplay();
-      showToast("💖 ขอบคุณสำหรับเครดิตค่ะ! +1 Credit added");
+          // เรียกใช้ฟังก์ชันเดิม
+          if (typeof event !== 'undefined') createSparkle(event);
+          updateCreditDisplay();
+          showToast("💖 ขอบคุณสำหรับเครดิตค่ะ! +1 Credit added");
 
-      setTimeout(() => valElement.classList.remove("pop"), 300);
+          setTimeout(() => valElement.classList.remove("pop"), 300);
+        });
     }
 
     function updateCreditDisplay() {
       const bar = document.getElementById("credit-bar");
       const percentage = (creditValue / maxCredit) * 100;
-      bar.style.width = Math.min(percentage, 100) + "%";
+      if (bar) bar.style.width = Math.min(percentage, 100) + "%";
 
       document.getElementById("total-added").textContent = totalAddedToday;
       document.getElementById("credit-value").textContent = creditValue;
@@ -1410,14 +1430,13 @@
 
     function closeDeductModal() {
       document.getElementById("deduct-modal").classList.remove("active");
-      // Reset form
       document.getElementById("deduct-reason").value = "";
       document.getElementById("deduct-amount").value = 1;
       proofAttached = false;
-      document.getElementById("upload-zone").style.borderColor = "rgba(212,67,67,0.1)";
+      document.getElementById("upload-zone").style.borderColor = "rgba(212,168,67,0.1)";
+      document.querySelector(".upload-text").textContent = "คลิกเพื่ออัปโหลดภาพหลักฐาน";
     }
 
-    // File upload simulation
     document.getElementById("upload-zone").onclick = () => document.getElementById("file-input").click();
     document.getElementById("file-input").onchange = (e) => {
       if (e.target.files.length > 0) {
@@ -1440,10 +1459,15 @@
         return;
       }
 
-      creditValue = Math.max(0, creditValue - amount);
-      updateCreditDisplay();
-      closeDeductModal();
-      showToast("📋 Report submitted. -" + amount + " credit deducted. ขอบคุณค่ะ");
+      // ส่งคำสั่งลบแต้มไปที่ Server จริง
+      fetch(`https://api.countapi.xyz/update/${namespace}/${key}?amount=-${amount}`)
+        .then(res => res.json())
+        .then(data => {
+          creditValue = data.value;
+          updateCreditDisplay();
+          closeDeductModal();
+          showToast("📋 Report submitted. -" + amount + " credit deducted.");
+        });
     }
 
     // ===== TOAST =====
