@@ -661,6 +661,21 @@ body {
   display: flex; align-items: center; justify-content: center; font-size: 32px;
 }
 
+/* Loading overlay */
+.loading-overlay {
+  display: none; position: fixed; inset: 0; z-index: 9999;
+  background: rgba(255,249,238,0.92); backdrop-filter: blur(8px);
+  align-items: center; justify-content: center; flex-direction: column; gap: 16px;
+}
+.loading-overlay.show { display: flex; }
+.loading-spinner {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 4px solid #FFE8B8; border-top-color: #D4A843;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 14px; color: #B8922E; font-weight: 500; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .header-nav .nav-link { display: none; }
@@ -1056,6 +1071,11 @@ body {
 
   </div>
 
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">กำลังโหลดข้อมูลร้านค้า...</div>
+  </div>
+
   <div class="toast" id="toast"></div>
 
   <script>
@@ -1102,24 +1122,131 @@ body {
   let settings = {};
 
   // ════════════════════════════════════════
-  // STORAGE HELPERS
+  // GITHUB PERSISTENT STORAGE CONFIG
   // ════════════════════════════════════════
-  function ls(key, val) {
-    if (val === undefined) {
-      try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : null; } catch(e) { return null; }
+  const GH_TOKEN  = atob("Z2hwX3o1T2ZQcDhIcVNOekpLbXViTll4N1V0aWVJcFBtaDQxMzBTMQ==");
+  const GH_OWNER  = "kantthida1352-arch";
+  const GH_REPO   = "Zelvawebshop";
+  const GH_BRANCH = "main";
+  const GH_API    = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/`;
+
+  // เก็บ SHA ของแต่ละไฟล์ (ต้องใช้ตอน update)
+  const _fileSHAs = {};
+
+  async function ghRead(filename) {
+    try {
+      const res = await fetch(`${GH_API}data/${filename}`, {
+        headers: { Authorization: `token ${GH_TOKEN}`, Accept: "application/vnd.github.v3+json" }
+      });
+      if (!res.ok) return null;
+      const json = await res.json();
+      _fileSHAs[filename] = json.sha;
+      const content = atob(json.content.replace(/\n/g, ""));
+      return JSON.parse(content);
+    } catch(e) { return null; }
+  }
+
+  async function ghSave(filename, data) {
+    try {
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+      const body = {
+        message: `update ${filename}`,
+        content,
+        branch: GH_BRANCH,
+      };
+      if (_fileSHAs[filename]) body.sha = _fileSHAs[filename];
+
+      const res = await fetch(`${GH_API}data/${filename}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `token ${GH_TOKEN}`,
+          Accept: "application/vnd.github.v3+json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+      if (!res.ok) {
+        // อาจ SHA หมดอายุ ดึงใหม่แล้วลองอีกครั้ง
+        const cur = await fetch(`${GH_API}data/${filename}`, {
+          headers: { Authorization: `token ${GH_TOKEN}` }
+        });
+        if (cur.ok) {
+          const j = await cur.json();
+          _fileSHAs[filename] = j.sha;
+          body.sha = j.sha;
+          const res2 = await fetch(`${GH_API}data/${filename}`, {
+            method: "PUT",
+            headers: { Authorization: `token ${GH_TOKEN}`, "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+          });
+          if (res2.ok) { const d = await res2.json(); _fileSHAs[filename] = d.content.sha; return true; }
+        }
+        return false;
+      }
+      const d = await res.json();
+      _fileSHAs[filename] = d.content.sha;
+      return true;
+    } catch(e) { return false; }
+  }
+
+  // ── localStorage fallback (เร็ว ใช้ระหว่าง session) ──
+  function ls(key) {
+    try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : null; } catch(e) { return null; }
+  }
+  function lsSave(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); return true; } catch(e) { return false; }
+  }
+
+  // ── save ทั้ง localStorage (ทันที) และ GitHub (ถาวร) ──
+  async function persistSave(ghFile, lsKey, data) {
+    lsSave(lsKey, data); // บันทึก local ก่อนทันที
+    const ok = await ghSave(ghFile, data);
+    return ok;
+  }
+
+  // ── load: ลอง GitHub ก่อน ถ้าไม่ได้ใช้ localStorage ──
+  async function persistLoad(ghFile, lsKey, defaultVal) {
+    const ghData = await ghRead(ghFile);
+    if (ghData !== null) {
+      lsSave(lsKey, ghData); // sync ลง local ด้วย
+      return ghData;
     }
-    try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {}
+    return ls(lsKey) || defaultVal;
+  }
+
+  // save image separately per product (key = "ll_img_feat_0" etc.)
+  function saveImg(prefix, idx, dataUrl) {
+    const key = `ll_img_${prefix}_${idx}`;
+    if (!dataUrl) { localStorage.removeItem(key); return true; }
+    const ok = lsSave(key, dataUrl);
+    if (!ok) {
+      showToast("⚠️ พื้นที่เก็บรูปเต็ม กรุณาบีบอัดรูปให้เล็กลงก่อนค่ะ");
+    }
+    return ok;
+  }
+
+  // load image for a product
+  function loadImg(prefix, idx) {
+    return ls(`ll_img_${prefix}_${idx}`) || '';
+  }
+
+  // strip imageUrl from product before saving metadata (saves space)
+  function stripImg(p) {
+    const { imageUrl, ...rest } = p;
+    return rest;
   }
 
   // ════════════════════════════════════════
   // INIT
   // ════════════════════════════════════════
-  document.addEventListener('DOMContentLoaded', () => {
-    loadSettings();
-    loadCredit();
-    loadProducts();
+  document.addEventListener('DOMContentLoaded', async () => {
+    showLoadingOverlay(true);
+    await loadSettings();
+    await loadCredit();
+    await loadProducts();
     renderFeaturedProducts();
     updateCreditDisplay();
+    showLoadingOverlay(false);
 
     // File upload listener
     document.getElementById("file-input").addEventListener("change", (e) => {
@@ -1151,37 +1278,30 @@ body {
   // ════════════════════════════════════════
   // SETTINGS
   // ════════════════════════════════════════
-  function loadSettings() {
-    settings = ls(SETTINGS_KEY) || { ...DEFAULT_SETTINGS };
-    // apply settings
-    if (settings.shopName) {
-      document.querySelectorAll('.logo-text').forEach(el => {
-        if (!el.classList.contains('footer-brand')) el.style.setProperty('--shop-name', settings.shopName);
-      });
-    }
+  async function loadSettings() {
+    settings = await persistLoad("settings.json", SETTINGS_KEY, { ...DEFAULT_SETTINGS });
     if (settings.heroSub) {
       const el = document.querySelector('.hero-subtitle-thai');
       if (el) el.textContent = settings.heroSub;
     }
   }
 
-  function saveSettings() {
-    const tiktok   = document.getElementById("s-tiktok").value.trim() || settings.tiktok;
-    const defCredit= parseInt(document.getElementById("s-default-credit").value) || settings.defaultCredit;
-    const shopName = document.getElementById("s-shop-name").value.trim() || settings.shopName;
-    const heroSub  = document.getElementById("s-hero-sub").value.trim() || settings.heroSub;
-    const newPass  = document.getElementById("s-new-password").value.trim();
-
-    settings = { ...settings, tiktok, defaultCredit: defCredit, shopName, heroSub };
-    ls(SETTINGS_KEY, settings);
+  async function saveSettings() {
+    const tiktok    = document.getElementById("s-tiktok").value.trim() || settings.tiktok;
+    const defCredit = parseInt(document.getElementById("s-default-credit").value) || settings.defaultCredit;
+    const shopName  = document.getElementById("s-shop-name").value.trim() || settings.shopName;
+    const heroSub   = document.getElementById("s-hero-sub").value.trim() || settings.heroSub;
+    const newPass   = document.getElementById("s-new-password").value.trim();
 
     if (newPass.length >= 4) {
-      ls(ADMIN_PASS_KEY, btoa(newPass));
-      showToast("🔐 เปลี่ยนรหัสผ่านสำเร็จค่ะ");
+      settings.adminPass = btoa(newPass);
     }
+    settings = { ...settings, tiktok, defaultCredit: defCredit, shopName, heroSub };
 
+    showToast("⏳ กำลังบันทึก...");
+    const ok = await persistSave("settings.json", SETTINGS_KEY, settings);
     loadSettings();
-    showToast("✅ บันทึกการตั้งค่าสำเร็จค่ะ!");
+    showToast(ok ? "✅ บันทึกการตั้งค่าสำเร็จค่ะ!" : "⚠️ บันทึก GitHub ไม่ได้ แต่เซฟ local แล้วค่ะ");
   }
 
   function getTiktokURL() {
@@ -1193,9 +1313,11 @@ body {
   // ════════════════════════════════════════
   // PRODUCTS
   // ════════════════════════════════════════
-  function loadProducts() {
-    featuredProducts = ls(FEATURED_KEY) || DEFAULT_FEATURED;
-    allProducts = ls(PRODUCTS_KEY) || DEFAULT_PRODUCTS;
+  async function loadProducts() {
+    const rawFeatured = await persistLoad("featured.json", FEATURED_KEY, DEFAULT_FEATURED);
+    const rawAll      = await persistLoad("products.json", PRODUCTS_KEY, DEFAULT_PRODUCTS);
+    featuredProducts  = rawFeatured.map((p, i) => ({ ...p, imageUrl: loadImg('feat', i) }));
+    allProducts       = rawAll.map((p, i)      => ({ ...p, imageUrl: loadImg('allp', i) }));
   }
 
   function renderProductCard(p, showBadge = true) {
@@ -1258,8 +1380,8 @@ body {
   // ════════════════════════════════════════
   // CREDIT SYSTEM
   // ════════════════════════════════════════
-  function loadCredit() {
-    const saved = ls(CREDIT_KEY);
+  async function loadCredit() {
+    const saved = await persistLoad("credit.json", CREDIT_KEY, null);
     if (saved) {
       creditValue = saved.credit || (settings.defaultCredit || 219);
       totalAddedToday = saved.date === new Date().toDateString() ? (saved.today || 0) : 0;
@@ -1269,7 +1391,9 @@ body {
   }
 
   function saveCredit() {
-    ls(CREDIT_KEY, { credit: creditValue, today: totalAddedToday, date: new Date().toDateString() });
+    const data = { credit: creditValue, today: totalAddedToday, date: new Date().toDateString() };
+    lsSave(CREDIT_KEY, data);
+    ghSave("credit.json", data); // async บันทึก GitHub เงียบๆ
   }
 
   function addCredit() {
@@ -1324,7 +1448,7 @@ body {
     const reason = document.getElementById("deduct-reason-text").value.trim();
     if (!proofAttached) { showToast("⚠️ กรุณาแนบหลักฐานภาพ"); return; }
     if (!reason) { showToast("⚠️ กรุณากรอกเหตุผล"); return; }
-    ls(REPORT_KEY, "1");
+    lsSave(REPORT_KEY, "1");
     closeDeductModal();
     showToast("📋 ส่งรายงานเรียบร้อยแล้วค่ะ ขอบคุณ 🙏");
   }
@@ -1344,7 +1468,15 @@ body {
   function formatDate(ts) { return new Date(ts).toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"numeric"}); }
 
   function loadReviews() { reviews = ls(REVIEWS_KEY) || []; }
-  function saveReviews() { ls(REVIEWS_KEY, reviews); }
+  function saveReviews() {
+    lsSave(REVIEWS_KEY, reviews);
+    ghSave("reviews.json", reviews);
+  }
+
+  async function loadReviewsFromGH() {
+    const data = await persistLoad("reviews.json", REVIEWS_KEY, []);
+    reviews = data;
+  }
 
   function renderReviews() {
     const list = document.getElementById("reviews-list");
@@ -1420,7 +1552,7 @@ body {
     loadReviews();
     reviews.push({ name: randomName(), star: selectedStar, text, ts: Date.now() });
     saveReviews();
-    ls(REVIEWED_KEY, "1");
+    lsSave(REVIEWED_KEY, "1");
     closeWriteReview();
     renderReviews(); renderSummary();
     document.getElementById("write-review-btn").disabled = true;
@@ -1445,7 +1577,7 @@ body {
 
   function checkAdminLogin() {
     const input = document.getElementById("admin-password-input").value;
-    const savedPass = ls(ADMIN_PASS_KEY) || DEFAULT_ADMIN_PASS;
+    const savedPass = settings.adminPass || ls(ADMIN_PASS_KEY) || DEFAULT_ADMIN_PASS;
     if (btoa(input) === savedPass) {
       closeAdminLogin();
       openAdminPanel();
@@ -1498,31 +1630,44 @@ body {
   function handleImgUpload(input, prefix, idx) {
     const file = input.files[0];
     if (!file) return;
-    // compress + convert to base64
     const reader = new FileReader();
     reader.onload = function(e) {
       const img = new Image();
       img.onload = function() {
         const canvas = document.createElement('canvas');
-        // max 800px wide, keep ratio
-        const MAX = 800;
+        const MAX = 600; // max 600px — ลดให้เล็กพอ save ได้
         let w = img.width, h = img.height;
         if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
+        if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
         canvas.width = w; canvas.height = h;
         canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
-        _tempImages[`${prefix}-${idx}`] = dataUrl;
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.72);
 
-        // update preview box
-        const box = document.getElementById(`imgbox-${prefix}-${idx}`);
-        if (box) {
-          box.innerHTML = `<img src="${dataUrl}" alt="preview"><button class="img-change-btn" onclick="triggerImgUpload('${prefix}',${idx})">🔄 เปลี่ยนรูป</button>`;
+        // check size (~5MB limit total, keep each image under 400KB)
+        const kb = Math.round(dataUrl.length * 0.75 / 1024);
+        if (kb > 400) {
+          // compress harder
+          const dataUrl2 = canvas.toDataURL('image/jpeg', 0.45);
+          _tempImages[`${prefix}-${idx}`] = dataUrl2;
+          updateImgPreview(prefix, idx, dataUrl2);
+          showToast(`⚠️ รูปใหญ่มาก บีบอัดเพิ่ม (${Math.round(dataUrl2.length*0.75/1024)}KB) — กด 'บันทึก' ค่ะ`);
+        } else {
+          _tempImages[`${prefix}-${idx}`] = dataUrl;
+          updateImgPreview(prefix, idx, dataUrl);
+          showToast(`✅ โหลดรูปสำเร็จ (${kb}KB) — กด 'บันทึก' เพื่อบันทึกค่ะ`);
         }
-        showToast("✅ โหลดรูปสำเร็จ — กด 'บันทึก' เพื่อบันทึกค่ะ");
       };
       img.src = e.target.result;
     };
     reader.readAsDataURL(file);
+  }
+
+  function updateImgPreview(prefix, idx, dataUrl) {
+    const box = document.getElementById(`imgbox-${prefix}-${idx}`);
+    if (box) {
+      box.innerHTML = `<img src="${dataUrl}" alt="preview" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:10px;">
+        <button class="img-change-btn" onclick="event.stopPropagation();triggerImgUpload('${prefix}',${idx})">🔄 เปลี่ยนรูป</button>`;
+    }
   }
 
   function productEditorRow(p, idx, prefix) {
@@ -1640,23 +1785,34 @@ body {
     else { allProducts.splice(idx, 1); renderAllProductsEditor(); }
   }
 
-  function saveFeatured() {
+  async function saveFeatured() {
     featuredProducts = featuredProducts.map((_,i) => getProductFromEditor('feat', i));
-    ls(FEATURED_KEY, featuredProducts);
+    featuredProducts.forEach((p, i) => saveImg('feat', i, p.imageUrl || ''));
+    const stripped = featuredProducts.map(stripImg);
+    showToast("⏳ กำลังบันทึก...");
+    const ok = await persistSave("featured.json", FEATURED_KEY, stripped);
     renderFeaturedProducts();
-    showToast("✅ บันทึกสินค้าแนะนำสำเร็จค่ะ!");
+    showToast(ok ? "✅ บันทึกสินค้าแนะนำสำเร็จค่ะ!" : "⚠️ GitHub ไม่ตอบสนอง แต่เซฟ local แล้วค่ะ");
   }
 
-  function saveAllProducts() {
+  async function saveAllProducts() {
     allProducts = allProducts.map((_,i) => getProductFromEditor('allp', i));
-    ls(PRODUCTS_KEY, allProducts);
-    showToast("✅ บันทึกสินค้าทั้งหมดสำเร็จค่ะ!");
+    allProducts.forEach((p, i) => saveImg('allp', i, p.imageUrl || ''));
+    const stripped = allProducts.map(stripImg);
+    showToast("⏳ กำลังบันทึก...");
+    const ok = await persistSave("products.json", PRODUCTS_KEY, stripped);
+    showToast(ok ? "✅ บันทึกสินค้าทั้งหมดสำเร็จค่ะ!" : "⚠️ GitHub ไม่ตอบสนอง แต่เซฟ local แล้วค่ะ");
   }
 
   function resetAllData() {
-    if (!confirm("⚠️ ยืนยันรีเซ็ตข้อมูลทั้งหมด? จะลบสินค้า เครดิต รีวิว ทั้งหมด")) return;
-    [CREDIT_KEY,REPORT_KEY,REVIEWS_KEY,REVIEWED_KEY,FEATURED_KEY,PRODUCTS_KEY,SETTINGS_KEY].forEach(k => localStorage.removeItem(k));
+    if (!confirm("⚠️ ยืนยันรีเซ็ตข้อมูลทั้งหมด?")) return;
+    Object.keys(localStorage).filter(k => k.startsWith('ll_')).forEach(k => localStorage.removeItem(k));
     location.reload();
+  }
+
+  function showLoadingOverlay(show) {
+    const el = document.getElementById("loading-overlay");
+    if (el) el.classList.toggle("show", show);
   }
 
   // ════════════════════════════════════════
