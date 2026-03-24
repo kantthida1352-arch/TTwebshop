@@ -23,20 +23,48 @@
   --grad-hero:linear-gradient(160deg,#FFF9EE 0%,#FFEFC4 40%,#FFE2A0 100%);
 }
 body{font-family:'Prompt',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FFF9EE !important;color:#3D2E1E;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
-body.dark{--bg:#1A1410;--cream:#251D16;--cream-dark:#2E2318;--text:#F5E6C8;--text2:#C4A882;--text3:#8A7060;--white:#2A1F16}
-
-/* Dark mode overrides */
-body.dark .header{background:rgba(26,20,16,0.9)}
-body.dark .credit-card,body.dark .product-card,body.dark .testimonial-card,body.dark .review-card,body.dark .modal,body.dark .write-review-modal,body.dark .admin-login-modal{background:#2A1F16;border-color:rgba(212,168,67,0.15)}
-body.dark .form-input,body.dark .form-textarea,body.dark .admin-input{background:#1A1410;color:#3D2E1E;border-color:rgba(212,168,67,0.2)}
-body.dark .trust-bar,body.dark .products-section{background:#1E1610}
-body.dark .btn-secondary,body.dark .btn-deduct-credit,body.dark .btn-back,body.dark .btn-view-reviews{background:#2A1F16;color:#F5D370}
-body.dark .rating-summary-card{background:#2A1F16}
-body.dark .admin-panel{background:#1A1410}
-body.dark .admin-body{background:#1A1410}
-body.dark .admin-product-row{background:#251D16}
-body.dark .admin-panel-header{background:linear-gradient(135deg,#0D0A07,#1A1410)}
-body.dark .img-url-input{background:#1A1410;color:#68D391}
+/* ── DARK (BLUE-GOLD) THEME ── */
+body.dark{background:#0D1B3E !important;color:#F0E6C8;}
+body.dark .header{background:rgba(13,27,62,0.92) !important;border-bottom-color:rgba(212,168,67,0.2)}
+body.dark .hero{background:linear-gradient(160deg,#0D1B3E 0%,#122050 50%,#1A2A60 100%) !important}
+body.dark .trust-bar{background:#0A1530 !important}
+body.dark .credit-section{background:linear-gradient(180deg,#0D1B3E,#0A1530) !important}
+body.dark .products-section{background:#0A1530 !important}
+body.dark .testimonials-section{background:linear-gradient(135deg,#0D1B3E,#0A1530,#122050) !important}
+body.dark .footer{background:#060E20 !important}
+body.dark .page-overlay{background:#0D1B3E !important}
+body.dark .page-header{background:rgba(13,27,62,0.95) !important}
+body.dark .stats-bar{background:#060E20 !important}
+body.dark .credit-card{background:#122050 !important;border-color:rgba(212,168,67,0.2) !important}
+body.dark .product-card{background:#122050 !important;border-color:rgba(212,168,67,0.15) !important}
+body.dark .testimonial-card{background:#122050 !important;border-color:rgba(212,168,67,0.15) !important}
+body.dark .review-card{background:#122050 !important}
+body.dark .modal{background:#122050 !important}
+body.dark .write-review-modal{background:#122050 !important}
+body.dark .admin-login-modal{background:#0D1B3E !important}
+body.dark .rating-summary-card{background:#122050 !important}
+body.dark .admin-panel{background:#0D1B3E !important}
+body.dark .admin-body{background:#0D1B3E !important;color:#F0E6C8}
+body.dark .admin-product-row{background:#122050 !important}
+body.dark .admin-panel-header{background:linear-gradient(135deg,#060E20,#0D1B3E) !important}
+body.dark .admin-tabs{background:#0D1B3E !important}
+body.dark .form-input,body.dark .form-textarea,body.dark .admin-input{background:#0A1530 !important;color:#F0E6C8 !important;border-color:rgba(212,168,67,0.25) !important}
+body.dark .btn-secondary,body.dark .btn-deduct-credit{background:#122050 !important;color:#F5D370 !important;border-color:rgba(212,168,67,0.3) !important}
+body.dark .btn-back,body.dark .btn-view-reviews{background:#122050 !important;color:#F5D370 !important}
+body.dark .section-title,body.dark .modal-title,body.dark .product-name{color:#F0E6C8 !important}
+body.dark .section-subtitle,body.dark .product-desc,body.dark .review-text,body.dark .testimonial-text{color:#C4A882 !important}
+body.dark .nav-link{color:#C4A882 !important}
+body.dark .nav-link:hover{color:#F5D370 !important;background:rgba(212,168,67,0.1) !important}
+body.dark .footer-links a{color:rgba(240,230,200,0.5) !important}
+body.dark .footer-desc{color:rgba(240,230,200,0.45) !important}
+body.dark .img-url-input{background:#0A1530 !important;color:#68D391 !important}
+body.dark .img-upload-box{background:#0A1530 !important;border-color:rgba(212,168,67,0.3) !important}
+body.dark .product-category{color:#F5D370 !important}
+body.dark .admin-section-title{color:#F0E6C8 !important}
+body.dark .admin-tab{color:#C4A882 !important}
+body.dark .admin-tab.active{color:#F5D370 !important}
+body.dark .credit-label,body.dark .credit-stat-label,body.dark .credit-bar-labels{color:#C4A882 !important}
+body.dark .credit-unit{color:#C4A882 !important}
 
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#FFF4E0}::-webkit-scrollbar-thumb{background:#F5D370;border-radius:3px}
 
@@ -55,7 +83,7 @@ body.dark .img-url-input{background:#1A1410;color:#68D391}
 .header{position:sticky;top:0;z-index:100;background:rgba(255,249,238,.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,168,67,.12);padding:0 24px}
 .header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:72px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-icon{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(180,150,100,0.1);flex-shrink:0}
+.logo-icon{width:40px;height:40px;border-radius:12px;background:#D4A843;background:-webkit-linear-gradient(135deg,#F5D370,#D4A843,#B8922E);background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(180,150,100,0.1);flex-shrink:0}
 .logo-text{font-family:‘Playfair Display’,serif;font-size:22px;font-weight:700;color:#B8922E;background:-webkit-linear-gradient(135deg,#B8922E,#D4A843);background:linear-gradient(135deg,#B8922E,#D4A843);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 body.dark .logo-text{-webkit-text-fill-color:transparent}
 .header-nav{display:flex;align-items:center;gap:6px}
@@ -63,7 +91,7 @@ body.dark .logo-text{-webkit-text-fill-color:transparent}
 .nav-link:hover{color:#B8922E;background:rgba(212,168,67,.08)}
 .btn-darkmode{width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(212,168,67,.25);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .btn-darkmode:hover{background:rgba(212,168,67,.1)}
-.btn-shop-now{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;font-family:‘Prompt’,sans-serif;font-size:14px;font-weight:600;border:none;border-radius:50px;cursor:pointer;box-shadow:0 4px 16px rgba(212,168,67,.3);transition:all .3s}
+.btn-shop-now{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:#D4A843;background:-webkit-linear-gradient(135deg,#F5D370,#D4A843,#B8922E);background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;font-family:‘Prompt’,sans-serif;font-size:14px;font-weight:600;border:none;border-radius:50px;cursor:pointer;box-shadow:0 4px 16px rgba(212,168,67,.3);transition:all .3s}
 .btn-shop-now:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(212,168,67,.4)}
 
 /* PROMO BANNER */
@@ -82,7 +110,7 @@ body.dark .logo-text{-webkit-text-fill-color:transparent}
 .hero-subtitle{font-size:clamp(16px,2.5vw,20px);color:#7A6A55;margin-bottom:8px;font-weight:300}
 .hero-subtitle-thai{font-size:clamp(15px,2vw,18px);color:#A89880;margin-bottom:36px;font-weight:300}
 .hero-cta-group{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;font-family:‘Prompt’,sans-serif;font-size:16px;font-weight:600;border:none;border-radius:50px;cursor:pointer;box-shadow:0 6px 24px rgba(212,168,67,.35);transition:all .3s;text-decoration:none;animation:pulse-glow 3s ease-in-out infinite}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:#D4A843;background:-webkit-linear-gradient(135deg,#F5D370,#D4A843,#B8922E);background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;font-family:‘Prompt’,sans-serif;font-size:16px;font-weight:600;border:none;border-radius:50px;cursor:pointer;box-shadow:0 6px 24px rgba(212,168,67,.35);transition:all .3s;text-decoration:none;animation:pulse-glow 3s ease-in-out infinite}
 .btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:rgba(255,255,255,.85);color:#B8922E;font-family:‘Prompt’,sans-serif;font-size:16px;font-weight:500;border:1.5px solid rgba(212,168,67,.35);border-radius:50px;cursor:pointer;transition:all .3s;text-decoration:none}
 .btn-secondary:hover{background:white;border-color:#D4A843}
 
@@ -108,10 +136,10 @@ body.dark .logo-text{-webkit-text-fill-color:transparent}
 #credit-value.pop{animation:credit-pop .3s cubic-bezier(.175,.885,.32,1.275)}
 .credit-unit{font-size:14px;font-weight:500;color:#A89880;margin-top:4px}
 .credit-bar-bg{height:8px;background:#FFF4E0;border-radius:4px;overflow:hidden;margin:20px 0 6px}
-.credit-bar-fill{height:100%;border-radius:4px;background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);transition:width .5s cubic-bezier(.22,1,.36,1)}
+.credit-bar-fill{height:100%;border-radius:4px;background:#D4A843;background:-webkit-linear-gradient(135deg,#F5D370,#D4A843,#B8922E);background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);transition:width .5s cubic-bezier(.22,1,.36,1)}
 .credit-bar-labels{display:flex;justify-content:space-between;font-size:11px;color:#A89880;margin-bottom:28px}
 .credit-actions{display:flex;gap:12px;margin-bottom:20px}
-.btn-add-credit{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;font-family:‘Prompt’,sans-serif;font-size:15px;font-weight:600;border:none;border-radius:16px;cursor:pointer;box-shadow:0 4px 16px rgba(212,168,67,.3);transition:all .3s}
+.btn-add-credit{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:#D4A843;background:-webkit-linear-gradient(135deg,#F5D370,#D4A843,#B8922E);background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;font-family:‘Prompt’,sans-serif;font-size:15px;font-weight:600;border:none;border-radius:16px;cursor:pointer;box-shadow:0 4px 16px rgba(212,168,67,.3);transition:all .3s}
 .btn-add-credit:hover{transform:translateY(-2px)}
 .btn-deduct-credit{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:#FFFFFF;color:#7A6A55;font-family:‘Prompt’,sans-serif;font-size:15px;font-weight:500;border:1.5px solid rgba(212,168,67,.25);border-radius:16px;cursor:pointer;transition:all .3s}
 .btn-deduct-credit:hover{background:#FFF9EE;border-color:#D4A843;color:#B8922E}
@@ -141,9 +169,9 @@ body.dark .logo-text{-webkit-text-fill-color:transparent}
 .product-price{font-size:22px;font-weight:700;color:#B8922E}
 .product-price-original{font-size:14px;color:#A89880;text-decoration:line-through}
 .product-discount{font-size:12px;font-weight:700;color:white;background:#E53E3E;padding:2px 8px;border-radius:50px}
-.btn-buy{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;font-family:‘Prompt’,sans-serif;font-size:15px;font-weight:600;border:none;border-radius:14px;cursor:pointer;transition:all .3s}
+.btn-buy{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:#D4A843;background:-webkit-linear-gradient(135deg,#F5D370,#D4A843,#B8922E);background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;font-family:‘Prompt’,sans-serif;font-size:15px;font-weight:600;border:none;border-radius:14px;cursor:pointer;transition:all .3s}
 .btn-buy:hover{filter:brightness(1.05);box-shadow:0 4px 12px rgba(212,168,67,.3)}
-.btn-view-products{display:inline-flex;align-items:center;gap:10px;padding:16px 48px;margin-top:40px;background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;font-family:‘Prompt’,sans-serif;font-size:16px;font-weight:700;border:none;border-radius:50px;cursor:pointer;box-shadow:0 6px 28px rgba(212,168,67,.4);transition:all .3s}
+.btn-view-products{display:inline-flex;align-items:center;gap:10px;padding:16px 48px;margin-top:40px;background:#D4A843;background:-webkit-linear-gradient(135deg,#F5D370,#D4A843,#B8922E);background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;font-family:‘Prompt’,sans-serif;font-size:16px;font-weight:700;border:none;border-radius:50px;cursor:pointer;box-shadow:0 6px 28px rgba(212,168,67,.4);transition:all .3s}
 .btn-view-products:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(212,168,67,.5)}
 
 /* COUNTDOWN */
@@ -235,7 +263,7 @@ body.dark .page-header{background:rgba(26,20,16,.92)}
 .rating-bar-track{flex:1;height:7px;background:#FFF4E0;border-radius:4px;overflow:hidden}
 .rating-bar-fill{height:100%;border-radius:4px;background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);transition:width .6s cubic-bezier(.22,1,.36,1)}
 .rating-bar-pct{font-size:11px;color:#A89880;width:28px;text-align:right}
-.btn-write-review{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;font-family:‘Prompt’,sans-serif;font-size:15px;font-weight:600;border:none;border-radius:50px;cursor:pointer;box-shadow:0 4px 16px rgba(212,168,67,.3);transition:all .3s}
+.btn-write-review{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:#D4A843;background:-webkit-linear-gradient(135deg,#F5D370,#D4A843,#B8922E);background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;font-family:‘Prompt’,sans-serif;font-size:15px;font-weight:600;border:none;border-radius:50px;cursor:pointer;box-shadow:0 4px 16px rgba(212,168,67,.3);transition:all .3s}
 .btn-write-review:hover{transform:translateY(-2px)}
 .btn-write-review:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .reviews-list{display:flex;flex-direction:column;gap:16px;margin-bottom:32px}
@@ -266,7 +294,7 @@ body.dark .page-header{background:rgba(26,20,16,.92)}
 .form-input:focus,.form-textarea:focus{outline:none;border-color:#D4A843;background:#FFFFFF;box-shadow:0 0 0 4px rgba(212,168,67,.1)}
 .upload-area{border:2px dashed rgba(212,168,67,.3);border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;background:#FFF9EE}
 .upload-area:hover{background:#FFF4E0;border-color:#D4A843}
-.btn-submit{width:100%;padding:14px;background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;border:none;border-radius:14px;font-family:inherit;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:0 4px 12px rgba(212,168,67,.3)}
+.btn-submit{width:100%;padding:14px;background:#D4A843;background:-webkit-linear-gradient(135deg,#F5D370,#D4A843,#B8922E);background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;border:none;border-radius:14px;font-family:inherit;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:0 4px 12px rgba(212,168,67,.3)}
 .btn-submit:hover{filter:brightness(1.08);transform:translateY(-2px)}
 
 /* WRITE REVIEW */
@@ -299,7 +327,7 @@ body.dark .page-header{background:rgba(26,20,16,.92)}
 .admin-input-full{grid-column:1/-1}
 .admin-input{width:100%;padding:9px 14px;background:#FFFFFF;border:1.5px solid rgba(212,168,67,.2);border-radius:10px;font-family:inherit;font-size:13px;color:#3D2E1E}
 .admin-input:focus{outline:none;border-color:#D4A843;box-shadow:0 0 0 3px rgba(212,168,67,.1)}
-.btn-admin-save{padding:10px 20px;background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;border:none;border-radius:10px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-admin-save{padding:10px 20px;background:#D4A843;background:-webkit-linear-gradient(135deg,#F5D370,#D4A843,#B8922E);background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);color:white;border:none;border-radius:10px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
 .btn-admin-save:hover{filter:brightness(1.08)}
 .btn-admin-danger{padding:10px 20px;background:#FFF0F0;color:#E53E3E;border:1.5px solid rgba(229,62,62,.2);border-radius:10px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
 .btn-admin-danger:hover{background:#FFE0E0}
@@ -416,10 +444,18 @@ body.dark .page-header{background:rgba(26,20,16,.92)}
 <header class="header">
   <div class="header-inner">
     <a href="#" class="logo">
-      <div class="logo-icon">
-        <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.45095 19.7926C8.60723 18.4987 9.1379 17.7743 10.1379 17.0317C11.5688 16.0259 13.3561 16.5948 13.3561 16.5948V13.2197C13.7907 13.2085 14.2254 13.2343 14.6551 13.2966V17.6401C14.6551 17.6401 12.8683 17.0712 11.4375 18.0775C10.438 18.8196 9.90623 19.5446 9.7505 20.8385C9.74562 21.5411 9.87747 22.4595 10.4847 23.2536C10.3345 23.1766 10.1815 23.0889 10.0256 22.9905C8.68807 22.0923 8.44444 20.7449 8.45095 19.7926ZM28 10.0369V14.293C28 14.293 26.42 14.2312 25.2507 13.9337C23.6179 13.5176 22.5685 12.8795 22.5685 12.8795C22.5685 12.8795 21.8436 12.4245 21.785 12.3928V21.1817C21.785 21.6711 21.651 22.8932 21.2424 23.9125C20.709 25.246 19.8859 26.1212 19.7345 26.3001C18.7334 27.4832 16.9672 28.28 15.3752 28.9987C13.9774 28.9805 13.5596 28.9987 11.1434 29.0944C8.96915 27.6814 8.06011 27.0172 7.6582 26.6277L7.66906 26.6355C9.84383 28.0485 12.2595 27.9528 12.2595 27.9528C12.6779 27.9346 14.0756 27.9528 15.6671 27.2341C17.4317 26.4374 18.4344 25.2543 18.4344 25.2543C19.4111 24.2001 19.9423 22.8662 20.4849 20.1354V11.3475C20.5435 11.3797 21.2679 11.8347 21.2679 11.8347C22.3179 12.4734 23.9506 12.8889 25.1204 13.1864C26.7 13.2483 26.7 13.2483 26.7 13.2483V9.91314C27.2404 10.0343 27.7011 10.0671 28 10.0369Z" fill="white"/></svg>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="logo-icon" style="width:44px;height:44px;border-radius:14px;background:#D4A843;background:-webkit-linear-gradient(135deg,#F5D370,#D4A843,#B8922E);background:linear-gradient(135deg,#F5D370,#D4A843,#B8922E);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(212,168,67,0.4)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3C12 3 7 5.5 7 9.5C7 11.5 8.5 13 10.5 13C11.5 13 12.3 12.6 12.8 12C13.3 12.6 14.1 13 15.1 13C17.1 13 18.6 11.5 18.6 9.5C18.6 5.5 12 3 12 3Z" fill="white" opacity="0.9"/>
+            <path d="M12 21C12 21 7 18.5 7 14.5C7 12.5 8.5 11 10.5 11C11.5 11 12.3 11.4 12.8 12C13.3 11.4 14.1 11 15.1 11C17.1 11 18.6 12.5 18.6 14.5C18.6 18.5 12 21 12 21Z" fill="white" opacity="0.7"/>
+          </svg>
+        </div>
+        <div style="display:flex;flex-direction:column;line-height:1">
+          <span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#B8922E;letter-spacing:3px;background:-webkit-linear-gradient(135deg,#B8922E,#D4A843,#F5D370);background:linear-gradient(135deg,#B8922E,#D4A843,#F5D370);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" id="shop-name-display">ZELVA</span>
+          <span style="font-size:9px;letter-spacing:2px;color:#A89880;font-weight:500;margin-top:1px">FASHION</span>
+        </div>
       </div>
-      <span class="logo-text font-display" id="shop-name-display">Zelva</span>
     </a>
     <nav class="header-nav">
       <a href="#products" class="nav-link">สินค้า</a>
@@ -435,7 +471,7 @@ body.dark .page-header{background:rgba(26,20,16,.92)}
 
 <!-- HERO -->
 
-<section class="hero" style="background:#FFEFC4">
+<section class="hero" style="background:#FFEFC4;background:-webkit-linear-gradient(160deg,#FFF9EE 0%,#FFEFC4 40%,#FFE2A0 100%);background:linear-gradient(160deg,#FFF9EE 0%,#FFEFC4 40%,#FFE2A0 100%)">
   <div class="hero-content">
     <div class="hero-badge animate-fade-in-up">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="#D4A843"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1474,8 +1510,21 @@ function copyImgUrl(prefix,idx){
 // ════════════════════════════════════
 // AI ANALYZE
 // ════════════════════════════════════
+function triggerAiUpload(prefix,idx){
+  const inp=document.getElementById(`aifile-${prefix}-${idx}`);
+  if(inp)inp.click();
+}
+async function handleAiUploadAndAnalyze(input,prefix,idx){
+  const file=input.files[0];if(!file)return;
+  const box=document.getElementById(`aibox-${prefix}-${idx}`);
+  const label=document.getElementById(`aibox-label-${prefix}-${idx}`);
+  if(label)label.textContent='✅ '+file.name;
+  if(box)box.style.borderColor='rgba(107,70,193,0.6)';
+  // Auto analyze after upload
+  await aiAnalyzeProduct(prefix,idx);
+}
 async function aiAnalyzeProduct(prefix,idx){
-  const fileInput=document.getElementById(`imgfile-${prefix}-${idx}`);
+  const fileInput=document.getElementById(`aifile-${prefix}-${idx}`) || document.getElementById(`imgfile-${prefix}-${idx}`);
   const urlInput=document.getElementById(`${prefix}-imgurl-${idx}`);
   const statusEl=document.getElementById(`ai-status-${prefix}-${idx}`);
   const btn=document.getElementById(`ai-btn-${prefix}-${idx}`);
@@ -1548,17 +1597,36 @@ function productEditorRow(p,idx,prefix){
         </div>
       </div>
 
-      <button class="btn-ai-analyze" id="ai-btn-${prefix}-${idx}" onclick="aiAnalyzeProduct('${prefix}',${idx})">
-        🤖 AI วิเคราะห์รูปสินค้า
-      </button>
-      <div class="ai-status" id="ai-status-${prefix}-${idx}"></div>
+      <!-- ช่อง 1: AI วิเคราะห์จากรูป screenshot -->
+      <div style="background:#F3F0FF;border-radius:12px;padding:16px;border:1.5px solid rgba(107,70,193,0.2);margin-bottom:16px">
+        <div style="font-size:13px;font-weight:700;color:#6B46C1;margin-bottom:8px">
+          🤖 ช่องที่ 1 — AI วิเคราะห์ข้อมูลสินค้า
+        </div>
+        <div style="font-size:11px;color:#9F7AEA;margin-bottom:10px">อัพโหลดรูป screenshot จาก TikTok/Shopee ระบบจะกรอกข้อมูลสินค้าให้อัตโนมัติ</div>
+        <div style="border:2px dashed rgba(107,70,193,0.3);border-radius:10px;padding:16px;text-align:center;cursor:pointer;background:white;position:relative;min-height:80px;display:flex;align-items:center;justify-content:center" 
+             id="aibox-${prefix}-${idx}" onclick="triggerAiUpload('${prefix}',${idx})">
+          <span id="aibox-label-${prefix}-${idx}" style="font-size:12px;color:#9F7AEA">📸 คลิกเพื่ออัพโหลด screenshot สินค้า</span>
+        </div>
+        <input type="file" id="aifile-${prefix}-${idx}" accept="image/*" style="display:none" 
+               onchange="handleAiUploadAndAnalyze(this,'${prefix}',${idx})">
+        <button class="btn-ai-analyze" id="ai-btn-${prefix}-${idx}" onclick="aiAnalyzeProduct('${prefix}',${idx})" style="margin-top:10px">
+          🤖 AI วิเคราะห์ข้อมูลสินค้า
+        </button>
+        <div class="ai-status" id="ai-status-${prefix}-${idx}"></div>
+      </div>
 
-      <label class="form-label" style="font-size:11px">รูปหลัก</label>
-      <div class="img-upload-box" id="imgbox-${prefix}-${idx}" onclick="triggerImgUpload('${prefix}',${idx})">${imgPreview}</div>
-      <input type="file" id="imgfile-${prefix}-${idx}" accept="image/*" style="display:none" onchange="handleImgUpload(this,'${prefix}',${idx})">
-      <div class="img-url-box">
-        <input class="img-url-input" id="${prefix}-imgurl-${idx}" value="${p.imageUrl||''}" placeholder="URL รูปจะมาอัตโนมัติ..." readonly>
-        <button class="btn-copy-url" onclick="copyImgUrl('${prefix}',${idx})">Copy URL</button>
+      <!-- ช่อง 2: รูปแสดงสินค้าจริง -->
+      <div style="margin-bottom:4px">
+        <div style="font-size:13px;font-weight:700;color:#B8922E;margin-bottom:8px">
+          🖼️ ช่องที่ 2 — รูปสินค้าที่แสดงในเว็บ
+        </div>
+        <div style="font-size:11px;color:#A89880;margin-bottom:10px">อัพโหลดรูปสินค้าที่สวยงาม จะแสดงในหน้าเว็บให้ลูกค้าดู</div>
+        <div class="img-upload-box" id="imgbox-${prefix}-${idx}" onclick="triggerImgUpload('${prefix}',${idx})">${imgPreview}</div>
+        <input type="file" id="imgfile-${prefix}-${idx}" accept="image/*" style="display:none" onchange="handleImgUpload(this,'${prefix}',${idx})">
+        <div class="img-url-box">
+          <input class="img-url-input" id="${prefix}-imgurl-${idx}" value="${p.imageUrl||''}" placeholder="URL รูปจะมาอัตโนมัติ..." readonly>
+          <button class="btn-copy-url" onclick="copyImgUrl('${prefix}',${idx})">Copy URL</button>
+        </div>
       </div>
 
       <div class="admin-field-row" style="margin-top:12px">
